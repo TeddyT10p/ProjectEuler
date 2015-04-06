@@ -1,33 +1,41 @@
-import time
+import numpy as np
 
 def prime_gen(x):
-  ## a function that generates a list of prime numbers up to 'x' in decending order
-  time_i = time.time()
-  p_list = range(2,x,1)
-  p_used = []
-  i = -1
-  while:
-    i = i+1
-    p_used.append(p_list[i])
-    p_list = [p for p in p_list if p%p_list[i]==0]
+  ## a function that generates a list of prime numbers up to 'x' in accending order
+  p_list = [2,3,5]
+  n_list = range(2,int(x))
+  n_check = linspace(0,0,len(n_list))
+  r0 = [1,13,17,29,37,41,49,53]
+  r1 = [7,19,31,43]
+  r2 = [11,23,47,59]
+  for n,i in zip(n_list,range(len(n_list))):
+    if n%60 in r0:
+      
+    elif n%60 in r1:
     
-  print 'generated primes in %d seconds'%(time.time()-time_i)
-  return primes[::-1].append(2)
+    elif n%60 in r2:
 
-def LPF_find(n=13195):
+  while True:
+    try:
+      p_list.append(n_list[0])
+      n_list = [p for p in n_list if p%n_list[0]!=0]
+    except:
+      break
+  return p_list
+    
+def LPF_find(n,prime_list):
   ## a function that finds the largest prime factor of 'n'
-  primes = prime_gen(n/2)
+  primes = prime_gen(n/2)[::-1]
   print 'primes generated'
   for p in primes:
     if n%p == 0:
       lpf = p
       break
-    try:
-      return p
-    except:
-      print 'could not find any prime factors'
-      return float('NaN')
-time_i = time.time()
-print LPF_find()
-time_f = time.time()
-print 'elapsed time is %d seconds'%(time_f-time_i)
+  try:
+    return p
+  except:
+    print 'could not find any prime factors'
+    return float('NaN')
+n=600851475143.
+p_list = prime_gen(n/2)
+print LPF_find(n,p_list)
