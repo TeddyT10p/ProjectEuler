@@ -1,19 +1,28 @@
 import numpy as np
 
-def prime_gen(x):
+def prime_gen(N):
   ## a function that generates a list of prime numbers up to 'x' in accending order
   p_list = [2,3,5]
-  n_list = range(2,int(x))
-  n_check = linspace(0,0,len(n_list))
+  check = [False]*(N+1)
   r0 = [1,13,17,29,37,41,49,53]
   r1 = [7,19,31,43]
   r2 = [11,23,47,59]
-  for n,i in zip(n_list,range(len(n_list))):
-    if n%60 in r0:
-      
-    elif n%60 in r1:
-    
-    elif n%60 in r2:
+  K = range(1, int(np.sqrt(N))+1)
+  for x in K:
+    for y in K:
+      n = 4*x**2+y**2
+      if n<=N and n%60 in r0:
+        check[n] = not check[n]
+      n = 3*x**2+y**2
+      if n<=N and n%60 in r1:
+        check[n] = not check[n]
+      n = 3*x**2-y**2
+      if n<=N and x>y and n%60 in r2:
+        check[n] = not check[n]
+  for x in range(5,int(np.sqrt(N))):
+    if sieve[x]:
+      for y in range(x**2,N+1,x**2):
+        sieve[y] = False
 
   while True:
     try:
