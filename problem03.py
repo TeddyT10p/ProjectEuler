@@ -20,31 +20,28 @@ def prime_gen(N):
       if n<=N and x>y and n%60 in r2:
         check[n] = not check[n]
   for x in range(5,int(np.sqrt(N))):
-    if sieve[x]:
+    if check[x]:
       for y in range(x**2,N+1,x**2):
-        sieve[y] = False
-
-  while True:
-    try:
-      p_list.append(n_list[0])
-      n_list = [p for p in n_list if p%n_list[0]!=0]
-    except:
-      break
+        check[y] = False
+  for p in range(7,N):
+    if check[p]:
+      p_list.append(p)
   return p_list
     
-def LPF_find(n,prime_list):
+def LPF_find(N):
   ## a function that finds the largest prime factor of 'n'
-  primes = prime_gen(n/2)[::-1]
+  primes = prime_gen(int(np.sqrt(N)))[::-1]
   print 'primes generated'
   for p in primes:
-    if n%p == 0:
+    if N%p == 0:
       lpf = p
       break
   try:
-    return p
+    return lpf
   except:
     print 'could not find any prime factors'
     return float('NaN')
-n=600851475143.
-p_list = prime_gen(n/2)
-print LPF_find(n,p_list)
+
+if __name__ == '__main__':
+  N = 600851475143
+  print LPF_find(N)
