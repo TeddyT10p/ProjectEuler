@@ -1,4 +1,47 @@
-import numpy as np
+"""Project Euler Problem 5 by Teddy Tortorici
+2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+"""
+
+
+def find_factors(x):
+    """outputs a list of the factors of x, if factors is empty, then x is prime"""
+    factors = [0] * int(x+1)
+    x = float(x)
+    for divisor in range(2, int(x+1)):
+        while True:
+            if x/divisor == int(x/divisor):
+                x /= divisor
+                factors[divisor] += 1
+            else:
+                break
+    return factors
+
+
+def find_smallest_evenly_divisible(n):
+    """returns the smallest number that is evenly divisible by all the numbers from 1 to n"""
+    factors_list = [0] * int(n)
+    # will fill this with exponents ignoring first two terms [0, 0, a, b, c, ...] corresponds to 2^a * 3^b * 4^c * ...
+    # sum over each number between 1 and n in reverse order
+    for num in range(n)[::-1]:
+        factors = find_factors(num)
+        for ii, f in enumerate(factors):
+            # If there are more factors, include them, if not, they are already accounted for
+            if f > factors_list[ii]:
+                factors_list[ii] = f
+    # now we want to create the product
+    product = 1
+    for ii in range(2, n):
+        product *= ii ** factors_list[ii]
+    return product
+
+
+if __name__ == '__main__':
+    print(find_smallest_evenly_divisible(10))
+    print(find_smallest_evenly_divisible(20))
+
+
+'''import numpy as np
 import copy
 
 def LCM_simple(L):
@@ -73,3 +116,4 @@ def LCM_list(L):
   
 if __name__ == '__main__':
   print LCM_list(range(1,21))
+'''
